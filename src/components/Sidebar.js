@@ -16,7 +16,7 @@ const SidebarBox = styled.aside`
   margin-right: 36px;
   padding: 24px;
   height: 100%;
-  width: 300px;
+  flex: 0 0 300px;
   border: 1px solid #f2f9ff;
   border-radius: 24px;
   background-color: #f5faff;

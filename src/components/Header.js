@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = () => {
-  return <SiteTitle>Урок 1. Знакомство с ReactJS. Первые компоненты</SiteTitle>;
+  return <SiteTitle>Урок 2. Жизненный цикл компонента</SiteTitle>;
 };
 
 export default Header;

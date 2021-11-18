@@ -1,33 +1,81 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ImRocket } from "react-icons/im";
 import MessageUser from "./MessageUser";
 
 const ChatContent = () => {
+  const [messages, setMessages] = useState([]);
+  const [value, setValue] = useState("");
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const lastMessages = messages[messages.length - 1];
+    let timerId = null;
+
+    if (messages.length && lastMessages.author !== "Bot") {
+      timerId = setTimeout(() => {
+        setMessages([
+          ...messages,
+          {
+            author: "Bot",
+            text: "Ответ БОТА",
+            date: new Date().toLocaleTimeString(),
+            bot: true,
+          },
+        ]);
+      }, 1000);
+    }
+
+    return () => clearInterval(timerId);
+  }, [messages]);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  const sendMessage = () => {
+    if (value) {
+      setMessages([
+        ...messages,
+        {
+          author: "User",
+          text: value,
+          date: new Date().toLocaleTimeString(),
+          bot: false,
+        },
+      ]);
+      setValue("");
+    }
+  };
+
   return (
-    <MessageBox>
+    <MessagesContainer>
       <ChatHeader>Header Chat</ChatHeader>
       <MessagesList>
-        <MessageUser
-          text="Lorem Ipsum - это текст-рыба, часто используемый в печати и
-        вэб-дизайне. Lorem Ipsum является стандартной рыбой"
-        />
+        {messages.map((text, index) => (
+          <MessageUser message={text} key={index} />
+        ))}
       </MessagesList>
       <ChatFooter>
-        <form>
-          <Input name="message" type="text" placeholder="Введите сообщение" />
-          <Button>
-            <ImRocket />
-          </Button>
-        </form>
+        <Input
+          ref={ref}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          name="message"
+          type="text"
+          placeholder="Введите сообщение"
+        />
+        <Button onClick={sendMessage}>
+          <ImRocket />
+        </Button>
       </ChatFooter>
-    </MessageBox>
+    </MessagesContainer>
   );
 };
 
 export default ChatContent;
 
-const MessageBox = styled.div`
+const MessagesContainer = styled.div`
   padding: 16px 0;
   height: 100%;
   flex: 1 0 auto;
@@ -43,17 +91,18 @@ const ChatHeader = styled.header`
   box-shadow: 1px 1px 15px 0px rgb(0 123 255 / 3%);
 `;
 const MessagesList = styled.div`
-  padding: 24px;
+  margin: 24px 0;
+  padding: 0 24px;
+  max-height: 46vh;
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  overflow-y: hidden;
 `;
 const ChatFooter = styled.footer`
   padding: 0 24px;
-  form {
-    display: flex;
-  }
+  display: flex;
 `;
 const Input = styled.input`
   display: block;
