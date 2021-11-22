@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = () => {
-  return <SiteTitle>Урок 2. Жизненный цикл компонента</SiteTitle>;
+  return <SiteTitle>Урок 3. Virtual DOM. Material UI. PropTypes</SiteTitle>;
 };
 
 export default Header;
