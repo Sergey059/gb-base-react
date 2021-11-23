@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { ImRocket } from "react-icons/im";
+import { FaTelegramPlane } from "react-icons/fa";
 import MessageUser from "./MessageUser";
 
-const ChatContent = () => {
+const MessagesList = () => {
   const [messages, setMessages] = useState([]);
   const [value, setValue] = useState("");
   const ref = useRef(null);
@@ -51,11 +51,11 @@ const ChatContent = () => {
   return (
     <MessagesContainer>
       <ChatHeader>Header Chat</ChatHeader>
-      <MessagesList>
+      <ChatContent>
         {messages.map((text, index) => (
           <MessageUser message={text} key={index} />
         ))}
-      </MessagesList>
+      </ChatContent>
       <ChatFooter>
         <Input
           ref={ref}
@@ -66,14 +66,14 @@ const ChatContent = () => {
           placeholder="Введите сообщение"
         />
         <Button onClick={sendMessage}>
-          <ImRocket />
+          <FaTelegramPlane />
         </Button>
       </ChatFooter>
     </MessagesContainer>
   );
 };
 
-export default ChatContent;
+export default MessagesList;
 
 const MessagesContainer = styled.div`
   padding: 16px 0;
@@ -90,7 +90,7 @@ const ChatHeader = styled.header`
   background-color: #fff;
   box-shadow: 1px 1px 15px 0px rgb(0 123 255 / 3%);
 `;
-const MessagesList = styled.div`
+const ChatContent = styled.div`
   margin: 24px 0;
   padding: 0 24px;
   max-height: 46vh;

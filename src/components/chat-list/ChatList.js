@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const Sidebar = () => {
+const ChatList = () => {
   const [rooms] = useState(["Chat-1", "Chat-2", "Chat-3"]);
   return (
-    <RoomsList>
-      {rooms.map((room, index) => (
-        <Room key={index}>{room}</Room>
-      ))}
-    </RoomsList>
+    <>
+      <RoomsList>
+        {rooms.map((room, index) => (
+          <Room key={index}>{room}</Room>
+        ))}
+      </RoomsList>
+    </>
   );
 };
 
-export default Sidebar;
+export default ChatList;
 
 const RoomsList = styled.aside`
   margin-right: 36px;

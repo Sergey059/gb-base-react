@@ -1,24 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import ChatContent from "./ChatContent";
-import Sidebar from "./Sidebar";
 
-const Content = () => {
+import Layout from "../components/Layout";
+import ChatList from "../components/chat-list/ChatList";
+import MessagesList from "../components/message-list/MessagesList";
+
+const СhatPage = () => {
   return (
-    <MainContent>
+    <Layout>
       <Chat>
-        <Sidebar />
-        <ChatContent />
+        <ChatList />
+        <MessagesList />
       </Chat>
-    </MainContent>
+    </Layout>
   );
 };
 
-export default Content;
+export default СhatPage;
 
-const MainContent = styled.main`
-  flex: 1 0 auto;
-`;
 const Chat = styled.div`
   padding: 24px 48px;
   height: 70vh;
