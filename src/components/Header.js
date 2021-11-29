@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Header = () => {
-  return (
-    <SiteTitle>
-      Урок 5. Контекст. Компоненты высшего порядка. Знакомство с Redux
-    </SiteTitle>
-  );
+  return <SiteTitle>Урок 6. Погружение в react-redux</SiteTitle>;
 };
 
 export default Header;
