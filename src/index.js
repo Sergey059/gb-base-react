@@ -1,22 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import IndexPage from "./pages/index";
-import ChatPage from "./pages/chat";
-import ProfilePage from "./pages/profile";
-import NotFoundPage from "./pages/404";
+import { CustomThemeProvider } from "./theme";
+import { ChatPage, HomePage, ProfilePage } from "./pages";
+import { store } from "./store";
+import "./common.module.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/chat/*" element={<ChatPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <CustomThemeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="//*" element={<HomePage />} />
+            <Route path="/chat/*" element={<ChatPage />} />
+            <Route path="/profile/*" element={<ProfilePage />} />
+          </Routes>
+        </BrowserRouter>
+      </CustomThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+reportWebVitals();

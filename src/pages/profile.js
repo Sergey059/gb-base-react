@@ -1,14 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Layout from "./../components/Layout";
+import { Routes, Route } from "react-router-dom";
+import { Profile } from "../components";
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
   return (
-    <Layout>
-      <h2>Страница профиля</h2>
-      <Link to="/">На главную</Link>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Profile />} />
+    </Routes>
   );
 };
-
-export default ProfilePage;
