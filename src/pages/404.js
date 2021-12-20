@@ -1,13 +1,7 @@
-import { Link } from "react-router-dom";
-import Layout from "./../components/Layout";
+import React from "react";
 
-const NotFoundPage = () => (
-  <Layout>
-    <div>
-      <h2>404: Страница не найдена</h2>
-      <Link to="/">На главную</Link>
-    </div>
-  </Layout>
-);
+const NotFoundPage = () => {
+  return <h1>NotFoundPage</h1>;
+};
 
 export default NotFoundPage;
