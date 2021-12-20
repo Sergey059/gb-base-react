@@ -1,11 +1,17 @@
 .messages
 	padding: 20px
-	height: 100%
+	height: calc( 100vh - 50px )
 	flex: 1 0 auto
 	display: flex
 	flex-direction: column
 	justify-content: flex-end
+	overflow: hidden
+	&__title
+		padding: 20px
 	&__list
+		margin-bottom: 20px
+		height: 90%
+		overflow-y: auto
 		flex: 1 0 auto
 	&__form
 		display: flex

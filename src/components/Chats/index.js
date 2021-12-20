@@ -19,10 +19,12 @@ const Chats = () => {
           </NavLink>
         ))}
       </div>
-      <button className="rooms__add">
-        Add Chat
-        <AiOutlinePlus />
-      </button>
+      <form className="rooms__form">
+        <input className="rooms__input" type="text" placeholder="add chat..." />
+        <button className="rooms__btn">
+          <AiOutlinePlus />
+        </button>
+      </form>
     </div>
   );
 };

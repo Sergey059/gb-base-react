@@ -3,6 +3,9 @@
 	width: 33%
 	max-width: 360px
 	height: 100%
+	display: flex
+	flex-direction: column
+	justify-content: space-between
 	border-right: 1px solid #f2f2f2
 	&__link
 		display: block
@@ -16,20 +19,22 @@
 			color: #999
 			border-color: #ccc
 		&.active
-			cursor: default	
-	&__add
-		padding: 20px
-		width: 100%
+			cursor: default
+	&__form
 		display: flex
 		justify-content: space-between
 		align-items: center
-		font-size: 1.17em
-		border: 1px solid #f2f2f2
-		border-radius: 3px
-		color: #ccc
-		&:hover
-			color: #999
-			border-color: #ccc
+	&__input
+		margin-right: 10px
+		padding: 10px 20px
+		flex: 1 0 auto
+		font-size: 16px
+		border-bottom: 1px solid #f2f2f2
+		&:focus
+			border-color:#ccc
+	&__btn
+		width: 40px
+		height: 40px
 		svg
 			margin-left: 10px
 			width: 20px
