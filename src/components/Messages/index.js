@@ -5,7 +5,11 @@ import { FaTelegramPlane } from "react-icons/fa";
 
 import Message from "../Message";
 import "./messages.sass";
-import { messagesSelector, sendMessage } from "../../store/messages";
+import {
+  messagesSelector,
+  sendMessage,
+  sendMessageWithBot,
+} from "../../store/messages";
 
 const Messages = () => {
   const { roomId } = useParams();
@@ -20,7 +24,10 @@ const Messages = () => {
   const send = useCallback(
     (author = "User", botMessage) => {
       if (value || botMessage) {
-        dispatch(sendMessage({ author, message: value || botMessage }, roomId));
+        dispatch(
+          sendMessageWithBot({ author, message: value || botMessage }, roomId)
+        );
+        // dispatch(sendMessage({ author, message: value || botMessage }, roomId));
         setValue("");
       }
     },
@@ -33,17 +40,17 @@ const Messages = () => {
     }
   }, [messages]);
 
-  useEffect(() => {
-    const lastMessages = messages[messages.length - 1];
-    let timerId = null;
+  // useEffect(() => {
+  //   const lastMessages = messages[messages.length - 1];
+  //   let timerId = null;
 
-    if (messages.length && lastMessages.author !== "Bot") {
-      timerId = setTimeout(() => {
-        send("Bot", "Hello from bot");
-      }, 300);
-    }
-    return () => clearInterval(timerId);
-  }, [messages, roomId, send]);
+  //   if (messages.length && lastMessages.author !== "Bot") {
+  //     timerId = setTimeout(() => {
+  //       send("Bot", "Hello from bot");
+  //     }, 300);
+  //   }
+  //   return () => clearInterval(timerId);
+  // }, [messages, roomId, send]);
 
   useEffect(() => {
     ref.current?.focus();
@@ -53,7 +60,12 @@ const Messages = () => {
     <div className="messages">
       <div className="messages__list" ref={refWrapper}>
         {messages.map((message, index) => (
-          <Message message={message} key={index} />
+          <Message
+            message={message}
+            key={index}
+            dispatch={dispatch}
+            roomId={roomId}
+          />
         ))}
       </div>
 

@@ -11,6 +11,7 @@ const Chat = ({ title, selected, handleListItemClick, dispatch }) => {
     dispatch(deleteConversation(title));
     setTimeout(() => navigate("/chat"), 100);
   };
+
   return (
     <div className="chat">
       <h3
