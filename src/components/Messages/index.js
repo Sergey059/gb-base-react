@@ -1,36 +1,30 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaTelegramPlane } from "react-icons/fa";
 
 import Message from "../Message";
 import "./messages.sass";
+import { messagesSelector, sendMessage } from "../../store/messages";
 
 const Messages = () => {
   const { roomId } = useParams();
-  const [messages, setMessages] = useState({});
+  const messages = useSelector(messagesSelector(roomId));
   const [value, setValue] = useState("");
+
+  const dispatch = useDispatch();
 
   const ref = useRef(null);
   const refWrapper = useRef(null);
 
-  const sendMessage = useCallback(
+  const send = useCallback(
     (author = "User", botMessage) => {
       if (value || botMessage) {
-        setMessages({
-          ...messages,
-          [roomId]: [
-            ...(messages[roomId] ?? []),
-            {
-              author,
-              message: value || botMessage,
-              date: new Date().toLocaleTimeString(),
-            },
-          ],
-        });
+        dispatch(sendMessage({ author, message: value || botMessage }, roomId));
         setValue("");
       }
     },
-    [messages, value, roomId]
+    [value, roomId, dispatch]
   );
 
   useEffect(() => {
@@ -40,27 +34,25 @@ const Messages = () => {
   }, [messages]);
 
   useEffect(() => {
-    const roomMessages = messages[roomId] ?? [];
-    const lastMessages = roomMessages[roomMessages.length - 1];
+    const lastMessages = messages[messages.length - 1];
     let timerId = null;
 
-    if (roomMessages.length && lastMessages.author !== "Bot") {
+    if (messages.length && lastMessages.author !== "Bot") {
       timerId = setTimeout(() => {
-        sendMessage("Bot", "Hello from bot");
+        send("Bot", "Hello from bot");
       }, 300);
     }
     return () => clearInterval(timerId);
-  }, [messages, roomId, sendMessage]);
+  }, [messages, roomId, send]);
 
   useEffect(() => {
     ref.current?.focus();
   }, []);
 
-  const roomMessages = messages[roomId] ?? [];
   return (
     <div className="messages">
       <div className="messages__list" ref={refWrapper}>
-        {roomMessages.map((message, index) => (
+        {messages.map((message, index) => (
           <Message message={message} key={index} />
         ))}
       </div>
@@ -74,7 +66,7 @@ const Messages = () => {
           type="text"
           placeholder="messages..."
         />
-        <button className="messages__btn" onClick={sendMessage}>
+        <button className="messages__btn" onClick={send}>
           <FaTelegramPlane />
         </button>
       </div>
